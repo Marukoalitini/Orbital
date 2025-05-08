@@ -81,9 +81,12 @@ export default function Intro({onVoltarMenu}) {
             let tutorialAtivo = true;
 
             // Configurações do tutorial
-            const duracaoArrastro = 2000; // 2 segundos para completar o arrasto
-            const tempoAntesLancamento = 1000; // 1 segundo antes de soltar
+            const duracaoArrastro = 3000; // 3 segundos para completar o arrasto
+            const tempoAntesLancamento = 2000; // 2 segundos antes de soltar
             const forcaDemonstracao = 0.15; // Força do lançamento demonstrativo
+            const tempoExibicaoTexto = 4000; // 4 segundos para exibir cada texto
+            const tempoPrimeiraMensagem = 6000; // 6 segundos para a primeira mensagem
+            let tempoUltimoPasso = 0; // Controle de tempo para transições
 
             // Função para avançar os passos do tutorial
             const avancarPassoTutorial = () => {
@@ -1143,7 +1146,8 @@ export default function Intro({onVoltarMenu}) {
                                 ehTutorial: true
                             };
                             planetas.push(planetaTutorial);
-                            tempoInicioPasso = agora; // Resetar timer aqui
+                            tempoInicioPasso = agora;
+                            tempoUltimoPasso = agora;
                             passoTutorial = 1;
                             break;
 
@@ -1152,10 +1156,9 @@ export default function Intro({onVoltarMenu}) {
                                 const tempoDecorrido = agora - tempoInicioPasso;
                                 const progresso = p.constrain(tempoDecorrido / duracaoArrastro, 0, 1);
 
-                                // Debug: console.log(`Progresso arrasto: ${progresso.toFixed(2)}`);
-
-                                if (progresso >= 1) {
-                                    tempoInicioPasso = agora; // Resetar timer para próximo passo
+                                if (progresso >= 1 && agora - tempoUltimoPasso >= tempoPrimeiraMensagem) {
+                                    tempoInicioPasso = agora;
+                                    tempoUltimoPasso = agora;
                                     passoTutorial = 2;
                                 }
                                 else {
@@ -1168,9 +1171,11 @@ export default function Intro({onVoltarMenu}) {
                             break;
 
                         case 2: // Preparar lançamento
-                            // Debug: console.log("Preparando lançamento...");
-                            tempoInicioPasso = agora;
-                            passoTutorial = 3;
+                            if (agora - tempoUltimoPasso >= tempoExibicaoTexto) {
+                                tempoInicioPasso = agora;
+                                tempoUltimoPasso = agora;
+                                passoTutorial = 3;
+                            }
                             break;
 
                         case 3: // Executar lançamento
@@ -1187,6 +1192,7 @@ export default function Intro({onVoltarMenu}) {
                                     planetaTutorial.ehTutorial = false;
 
                                     tempoInicioPasso = agora;
+                                    tempoUltimoPasso = agora;
                                     passoTutorial = 4;
                                 }
                             }
@@ -1212,17 +1218,20 @@ export default function Intro({onVoltarMenu}) {
                     p.textAlign(p.CENTER, p.CENTER);
 
                     if (passoTutorial === 1) {
-                        p.text("Arraste para trás para criar força", centroX, centroY *0.3);
+                        p.text("Bem-vindo ao Orbital!", centroX, centroY * 0.2);
                         p.textSize(18);
-                        p.text("(Demonstração automática)", centroX, centroY - 70);
+                        p.text("Arraste o planeta para trás para criar força", centroX, centroY * 0.2 + 30);
+                        p.text("Quanto mais você arrastar, mais forte será o lançamento", centroX, centroY * 0.2 + 55);
                     }
                     else if (passoTutorial === 2) {
-                        p.text("Solte para lançar!", centroX, centroY - 100);
+                        p.text("Perfeito! Agora solte o planeta", centroX, centroY * 0.2);
+                        p.textSize(18);
+                        p.text("A força do lançamento determinará a trajetória", centroX, centroY * 0.2 + 30);
                     }
                     else if (passoTutorial === 3) {
-                        p.text("Observe o movimento resultante", centroX, centroY - 100);
+                        p.text("Observe como o planeta orbita!", centroX, centroY * 0.2);
                         p.textSize(18);
-                        p.text("O tutorial reiniciará em breve...", centroX, centroY - 70);
+                        p.text("A gravidade do buraco negro afeta sua trajetória", centroX, centroY * 0.2 + 30);
                     }
                     p.pop();
                 }
