@@ -98,7 +98,7 @@ export default function Canvas ({ dificuldade, onVoltarMenu }){
       let explosoes = []; // Lista de explosões
       let particulasNebulosa = []; // Partículas da nebulosa de fundo
       let estrelas = []; // Estrelas de fundo
-
+      let pontos = 0; // Pontos do jogador
       // Quantidade de objetos de fundo
       const numEstrelas = 300; // Número de estrelas no fundo
       const numParticulasNebulosa = 250; // Número de partículas da nebulosa
@@ -685,7 +685,7 @@ export default function Canvas ({ dificuldade, onVoltarMenu }){
         // Desenha o fundo de nebulosa
         desenharFundoNebulosa(deltaTime);
 
-        // Exibe o contador de FPS (quadros por segundo) e o deltaTime
+        /* Exibe o contador de FPS (quadros por segundo) e o deltaTime
         const fps = Math.round(p.frameRate());
         const dtMs = Math.round(deltaTime * 1000); // Converte para milissegundos para exibição
         p.push();
@@ -695,6 +695,7 @@ export default function Canvas ({ dificuldade, onVoltarMenu }){
         p.textAlign(p.RIGHT, p.TOP);
         p.text(`FPS: ${fps} | DT: ${dtMs}ms`, p.width - 10, 10);
         p.pop();
+        */
 
         // Desenha os buracos negros
         buracosNegros.forEach(bn => bn.desenhar(deltaTime));
@@ -1105,6 +1106,25 @@ export default function Canvas ({ dificuldade, onVoltarMenu }){
           // Restaura o contexto de desenho
           ctx.restore();
         }
+        pontos = 0; // Reseta os pontos a cada frame
+        for (const planeta of planetas) {
+          if (!planeta.arrastando) {
+            planeta.tempoVida += deltaTime * 1000; // Atualiza o tempo de vida do planeta
+            }
+          console.log(planeta.tempoVida);
+          if (planeta.tempoVida > 5000 ) {
+            pontos++; // Incrementa os pontos
+            planeta.contabilizado = true; // Marca o planeta como contabilizado
+          }
+        }
+        // Exibe os pontos na tela
+        p.push();
+        p.fill(255);
+        p.noStroke();
+        p.textSize(28);
+        p.textAlign(p.LEFT, p.TOP);
+        p.text(`Pontos: ${pontos}`, 70, 25);
+        p.pop();
       };
 
       // Função chamada quando o mouse é pressionado - cria um novo planeta
@@ -1123,7 +1143,8 @@ export default function Canvas ({ dificuldade, onVoltarMenu }){
           vy: 0, // Velocidade Y inicial
           diametro: diametroPlaneta, // Diâmetro do planeta
           arrastando: true, // Indica que o planeta está sendo arrastado
-          inicioArrasto: { x: p.mouseX, y: p.mouseY } // Posição inicial do arrasto
+          inicioArrasto: { x: p.mouseX, y: p.mouseY }, // Posição inicial do arrasto
+          tempoVida : 0
         };
 
         // Adiciona o novo planeta à lista de planetas

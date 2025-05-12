@@ -705,7 +705,7 @@ export default function Intro({onVoltarMenu}) {
                 // Desenha o fundo de nebulosa
                 desenharFundoNebulosa(deltaTime);
 
-                // Exibe o contador de FPS (quadros por segundo) e o deltaTime
+                /* Exibe o contador de FPS (quadros por segundo) e o deltaTime
                 const fps = Math.round(p.frameRate());
                 const dtMs = Math.round(deltaTime * 1000); // Converte para milissegundos para exibição
                 p.push();
@@ -715,6 +715,7 @@ export default function Intro({onVoltarMenu}) {
                 p.textAlign(p.RIGHT, p.TOP);
                 p.text(`FPS: ${fps} | DT: ${dtMs}ms`, p.width - 10, 10);
                 p.pop();
+                 */
 
                 // Desenha os buracos negros
                 buracosNegros.forEach(bn => bn.desenhar(deltaTime));
@@ -1133,7 +1134,7 @@ export default function Intro({onVoltarMenu}) {
 
                     switch (passoTutorial) {
                         case 0: // Iniciar tutorial
-                            posicaoInicial = { x: centroX + 300, y: centroY };
+                            posicaoInicial = { x: centroX + 150, y: centroY - 72};
                             planetaTutorial = {
                                 x: posicaoInicial.x,
                                 y: posicaoInicial.y,
@@ -1163,7 +1164,7 @@ export default function Intro({onVoltarMenu}) {
                                 }
                                 else {
                                     const progressoSuavizado = easeInOutQuad(progresso);
-                                    posicaoAlvo = { x: posicaoInicial.x, y: posicaoInicial.y + 53 };
+                                    posicaoAlvo = { x: posicaoInicial.x, y: posicaoInicial.y + 72 };
                                     planetaTutorial.x = p.lerp(posicaoInicial.x, posicaoAlvo.x, progressoSuavizado);
                                     planetaTutorial.y = p.lerp(posicaoInicial.y, posicaoAlvo.y, progressoSuavizado);
                                 }
@@ -1220,7 +1221,7 @@ export default function Intro({onVoltarMenu}) {
                     if (passoTutorial === 1) {
                         p.text("Bem-vindo ao Orbital!", centroX, centroY * 0.2);
                         p.textSize(18);
-                        p.text("Arraste o planeta para trás para criar força", centroX, centroY * 0.2 + 30);
+                        p.text("Clique para criar um planeta, arraste-o para criar uma força", centroX, centroY * 0.2 + 30);
                         p.text("Quanto mais você arrastar, mais forte será o lançamento", centroX, centroY * 0.2 + 55);
                     }
                     else if (passoTutorial === 2) {
@@ -1359,7 +1360,7 @@ export default function Intro({onVoltarMenu}) {
                 loop
                 autoPlay={currentTrack === 2}
             />
-            <div className="absolute top-12 left-0 bg-purple-900 bg-opacity-80 rounded-lg p-4 shadow-lg min-w-[200px]">
+            <div className="absolute top-2 left-2 bg-purple-900 bg-opacity-80 rounded-lg p-4 shadow-lg min-w-[200px]">
                 <div className="flex flex-col space-y-3">
                     {/* Botão para voltar ao menu */}
                     <button

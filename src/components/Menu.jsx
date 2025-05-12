@@ -45,14 +45,14 @@ const Menu = ({ onStartGame , onTutorial }) => {
       {/* Título com efeito de brilho */}
       <div className="relative z-10">
         <h1 className="text-5xl md:text-7xl font-bold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-pink-300 to-purple-300 animate-gradient">
-          Órbita
+          Orbital
         </h1>
         <div className="w-32 h-1 mx-auto bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 rounded-full mb-8"></div>
       </div>
 
       {/* Conteúdo principal com efeito de vidro */}
       <div className="relative z-10 max-w-2xl backdrop-blur-md bg-black bg-opacity-30 p-8 rounded-xl mb-8 text-center border border-purple-500/30 shadow-lg">
-        {/*<h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">
           A História do Universo
         </h2>
 
@@ -75,7 +75,8 @@ const Menu = ({ onStartGame , onTutorial }) => {
 
         <p className="mb-6 text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300">
           Você está pronto para se tornar um criador de mundos?
-        </p>*/}
+        </p>
+        {/*
         <p className="mb-4 text-gray-200">
           Em um palco de veludo cósmico, onde os buracos negros entoam seu <span className="text-purple-300">canto gravitacional</span>,
           cada movimento é uma coreografia escrita nas leis do universo. Como arquiteto celestial, suas mãos moldam
@@ -94,10 +95,11 @@ const Menu = ({ onStartGame , onTutorial }) => {
           <span className="text-pink-300"> equações vivas</span> de atração e repúdio.
         </p>
 
-        <p className="mb-6 text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300">
+        <span className="mb-6 text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300">
           Entre neste <span className="italic">balé gravitacional</span> - qual história escreverás no <span className="text-xl">📜</span> do cosmos?
           <div className="mt-2 animate-pulse text-teal-300 text-xl">▼</div>
-        </p>
+        </span>
+        */}
 
         <div className="flex justify-center mb-4">
           <button
